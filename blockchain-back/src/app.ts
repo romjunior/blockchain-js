@@ -1,5 +1,7 @@
 import { json } from 'body-parser';
 import express, { Express, NextFunction, Request, Response } from 'express';
+
+import WalletRouter from './routes/WalletRouter';
 import { ec as EC } from "elliptic";
 import Blockchain from './core/Blockchain';
 import Transaction from './model/Transaction';
@@ -32,6 +34,8 @@ console.log(`is Valid Blockchain: ${jrCoin.isChainValid()}`) */
 const app: Express = express();
 
 app.use(json());
+
+app.use('/wallet', WalletRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({ message: err.message });
