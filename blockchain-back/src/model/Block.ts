@@ -9,6 +9,18 @@ export default class Block {
         this.nonce = 0;
     }
 
+    get getHash(): string {
+        return this.hash;
+    }
+
+    get getPreviousHash(): string {
+        return this.previousHash;
+    }
+
+    get getData(): Transaction[] {
+        return this.data;
+    }
+
     calculateHash(): string {
         return SHA256(this.timestamp.toDateString() + JSON.stringify(this.data) + this.previousHash + this.nonce).toString();
     }
