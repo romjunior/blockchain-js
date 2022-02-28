@@ -3,7 +3,7 @@ import Keys from "./Keys";
 
 const wallets: Wallet[] = [];
 
-export const createWallet = (alias: string): string[] => {
+export const createWallet = async (alias: string): Promise<string[]> => {
     for(const w of wallets) {
         if(w.alias === alias) {
             throw new Error('Wallet alias already exists! choose other alias.');

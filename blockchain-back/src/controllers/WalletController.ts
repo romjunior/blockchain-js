@@ -7,17 +7,21 @@ const log: Logger = new Logger();
 
 
 
-export const createWalletController: RequestHandler = (req, res) => {
+export const createWalletController: RequestHandler = async (req, res, next) => {
     log.info(`Init request`);
     const alias = req.query.alias as string;
-    const [privateKey, publicKey] = createWallet(alias);
-    log.info(`success alias=${alias}, publicKey=${publicKey}`);
-    return res.status(201).json({
-        alias,
-        privateKey,
-        publicKey,
-        message: 'The private key is yours! you gonna use to manage your wallet, so dont lose it! we not gonna stored here!'
-    });
+    try {
+        const [privateKey, publicKey] = await createWallet(alias);
+        log.info(`success alias=${alias}, publicKey=${publicKey}`);
+        return res.status(201).json({
+            alias,
+            privateKey,
+            publicKey,
+            message: 'The private key is yours! you gonna use to manage your wallet, so dont lose it! we not gonna stored here!'
+        });
+    }catch(err) {
+        return next(err);
+    }
 }
 
 export const findPublicKeyByAliasController: RequestHandler = (req, res, next) => {
@@ -25,7 +29,7 @@ export const findPublicKeyByAliasController: RequestHandler = (req, res, next) =
     const alias = req.query.alias as string;
     const publicKey = findPublicKeyByAlias(alias);
 
-    if(!publicKey) {
+    if (!publicKey) {
         log.error(`keys not found`);
         return next(new NotFoundRequestError({ message: 'Public key for alias not found' }, ''));
     }
