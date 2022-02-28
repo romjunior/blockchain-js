@@ -24,10 +24,10 @@ export const createWalletController: RequestHandler = async (req, res, next) => 
     }
 }
 
-export const findPublicKeyByAliasController: RequestHandler = (req, res, next) => {
+export const findPublicKeyByAliasController: RequestHandler = async (req, res, next) => {
     log.info(`Init request`);
     const alias = req.query.alias as string;
-    const publicKey = findPublicKeyByAlias(alias);
+    const publicKey = await findPublicKeyByAlias(alias);
 
     if (!publicKey) {
         log.error(`keys not found`);
@@ -40,9 +40,9 @@ export const findPublicKeyByAliasController: RequestHandler = (req, res, next) =
     });
 }
 
-export const findAllWalletsController: RequestHandler = (req, res) => {
+export const findAllWalletsController: RequestHandler = async (_req, res) => {
     log.info(`Init request`);
-    const wallets = listAllWallets();
+    const wallets = await listAllWallets();
     log.info(`success listAllWallets`);
     res.status(200).json({
         total: wallets.length,

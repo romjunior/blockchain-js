@@ -20,10 +20,14 @@ export const createWallet = async (alias: string): Promise<string[]> => {
     return keys;
 }
 
-export const findPublicKeyByAlias = (alias: string): string | undefined => {
+const sleep = (ms: number) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export const findPublicKeyByAlias = async (alias: string): Promise<string | undefined> => {
     return wallets.find(w => w.alias === alias)?.publicKey;
 }
 
-export const listAllWallets = (): Wallet[] => {
+export const listAllWallets = async (): Promise<Wallet[]> => {
     return wallets;
 }
