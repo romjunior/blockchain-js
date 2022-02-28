@@ -14,7 +14,9 @@
     "body-parser": "^1.19.2",
     "crypto-js": "^4.1.1",
     "elliptic": "^6.5.4",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0",
+    "tslog": "^3.3.2"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",

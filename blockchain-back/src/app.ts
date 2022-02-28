@@ -5,6 +5,7 @@ import WalletRouter from './routes/WalletRouter';
 import { ec as EC } from "elliptic";
 import Blockchain from './core/Blockchain';
 import Transaction from './model/Transaction';
+import errorHandler from './middleware/ExpressErrorHandler';
 
 /* const algoritm: string = 'secp256k1';
 const hex = 'hex';
@@ -37,9 +38,7 @@ app.use(json());
 
 app.use('/wallet', WalletRouter);
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    res.status(500).json({ message: err.message });
-});
+app.use(errorHandler);
 
 app.listen(3001, () => {
     console.log('Servidor rodando na porta 3001');

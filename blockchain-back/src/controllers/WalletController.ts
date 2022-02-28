@@ -1,14 +1,16 @@
 import { RequestHandler } from "express";
+import { Logger } from "tslog";
 import { createWallet, findPublicKeyByAlias, listAllWallets } from "../core/Wallets";
+
+const log: Logger = new Logger();
 
 
 
 export const createWalletController: RequestHandler = (req, res) => {
+    log.info(`Init request`)
     const alias = req.query.alias as string;
-    if (!alias) {
-        throw new Error('Alias is missing! please fill in alias param');
-    }
     const [privateKey, publicKey] = createWallet(alias);
+    log.info(`success alias=${alias}, publicKey=${publicKey}`);
     return res.status(201).json({
         alias,
         privateKey,
@@ -19,18 +21,12 @@ export const createWalletController: RequestHandler = (req, res) => {
 
 export const findPublicKeyByAliasController: RequestHandler = (req, res) => {
     const alias = req.query.alias as string;
-    if (!alias) {
-        throw new Error('Alias is missing! please fill in alias param');
-    }
-
     const publicKey = findPublicKeyByAlias(alias);
 
     if(!publicKey) {
-        res.status(404).json({
+        return res.status(404).json({
             message: 'Public key for alias not found'
         });
-
-        return;
     }
 
     res.status(200).json({
