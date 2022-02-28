@@ -5,8 +5,8 @@ export default class Block {
     private hash: string;
     private nonce: number;
     constructor(private timestamp: Date, private data: Transaction[], private previousHash: string = '') {
-        this.hash = '';
         this.nonce = 0;
+        this.hash = this.calculateHash();
     }
 
     get getHash(): string {

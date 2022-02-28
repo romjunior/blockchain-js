@@ -4,8 +4,10 @@ import Keys from "../core/Keys";
 export default class Transaction {
 
     private signature: string = '';
+    private timestamp: string;
 
     constructor(private fromAddress: string, private toAddress: string, private amount: number){
+        this.timestamp = new Date().toDateString();
     }
 
     get getFromAddress() {
@@ -21,7 +23,7 @@ export default class Transaction {
     }
 
     calculateHash(): string {
-        return SHA256(this.fromAddress.concat(this.toAddress) + this.amount).toString();
+        return SHA256(this.fromAddress.concat(this.toAddress) + this.amount + this.timestamp).toString();
     }
 
     signTransaction(signKey: string): void {

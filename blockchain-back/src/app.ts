@@ -6,6 +6,8 @@ import { ec as EC } from "elliptic";
 import Blockchain from './core/Blockchain';
 import Transaction from './model/Transaction';
 import errorHandler from './middleware/ExpressErrorHandler';
+import BalanceRouter from './routes/BalanceRouter';
+import BlockchainRouter from './routes/BlockchainRouter';
 
 /* const algoritm: string = 'secp256k1';
 const hex = 'hex';
@@ -37,6 +39,8 @@ const app: Express = express();
 app.use(json());
 
 app.use('/wallet', WalletRouter);
+app.use('/balance', BalanceRouter);
+app.use('/blockchain', BlockchainRouter);
 
 app.use(errorHandler);
 

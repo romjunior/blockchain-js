@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { param, query } from "express-validator";
+import { query } from "express-validator";
 import { createWalletController, findAllWalletsController, findPublicKeyByAliasController } from "../controllers/WalletController";
 import expressValidator from "../middleware/ExpressValidatorMiddleware";
 
