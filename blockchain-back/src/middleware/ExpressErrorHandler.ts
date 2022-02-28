@@ -9,7 +9,7 @@ const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
     if(err instanceof HttpError) {
         log.error(`handling http error statusCode=${err.statusCode}`);
         return res.status(err.statusCode).json({
-            errors: err.dataResponse
+            data: err.dataResponse
         });
     }
     log.error(`handling error message=${err.message}`);

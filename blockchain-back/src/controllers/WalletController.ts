@@ -1,13 +1,14 @@
 import { RequestHandler } from "express";
 import { Logger } from "tslog";
 import { createWallet, findPublicKeyByAlias, listAllWallets } from "../core/Wallets";
+import { NotFoundRequestError } from "../errors/HttpError";
 
 const log: Logger = new Logger();
 
 
 
 export const createWalletController: RequestHandler = (req, res) => {
-    log.info(`Init request`)
+    log.info(`Init request`);
     const alias = req.query.alias as string;
     const [privateKey, publicKey] = createWallet(alias);
     log.info(`success alias=${alias}, publicKey=${publicKey}`);
@@ -19,16 +20,16 @@ export const createWalletController: RequestHandler = (req, res) => {
     });
 }
 
-export const findPublicKeyByAliasController: RequestHandler = (req, res) => {
+export const findPublicKeyByAliasController: RequestHandler = (req, res, next) => {
+    log.info(`Init request`);
     const alias = req.query.alias as string;
     const publicKey = findPublicKeyByAlias(alias);
 
     if(!publicKey) {
-        return res.status(404).json({
-            message: 'Public key for alias not found'
-        });
+        log.error(`keys not found`);
+        return next(new NotFoundRequestError({ message: 'Public key for alias not found' }, ''));
     }
-
+    log.info(`success alias=${alias}, publicKey=${publicKey}`);
     res.status(200).json({
         alias,
         publicKey
@@ -36,7 +37,9 @@ export const findPublicKeyByAliasController: RequestHandler = (req, res) => {
 }
 
 export const findAllWalletsController: RequestHandler = (req, res) => {
+    log.info(`Init request`);
     const wallets = listAllWallets();
+    log.info(`success listAllWallets`);
     res.status(200).json({
         total: wallets.length,
         wallets
