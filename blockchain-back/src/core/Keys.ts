@@ -1,8 +1,8 @@
 import { ec as EC } from "elliptic";
 
-const algoritm: string = 'secp256k1';
+const algoritm = 'secp256k1';
 const hex = 'hex';
-const base64: string = 'base64';
+const base64 = 'base64';
 
 export default class Keys {
     private static instance: Keys;

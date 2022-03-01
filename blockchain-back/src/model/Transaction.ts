@@ -3,7 +3,7 @@ import Keys from "../core/Keys";
 
 export default class Transaction {
 
-    private signature: string = '';
+    private signature = '';
     private timestamp: string;
 
     constructor(private fromAddress: string, private toAddress: string, private amount: number){

@@ -1,10 +1,11 @@
-import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
+import { ErrorRequestHandler } from "express";
 import { Logger } from "tslog";
 import { HttpError } from "../errors/HttpError";
 
 const log: Logger = new Logger();
 
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
     if(err instanceof HttpError) {
         log.error(`handling http error statusCode=${err.statusCode}`);

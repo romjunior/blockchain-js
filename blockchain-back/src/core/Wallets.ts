@@ -4,14 +4,14 @@ import Keys from "./Keys";
 const wallets: Wallet[] = [];
 
 export const createWallet = async (alias: string): Promise<string[]> => {
-    for(const w of wallets) {
-        if(w.alias === alias) {
+    for (const w of wallets) {
+        if (w.alias === alias) {
             throw new Error('Wallet alias already exists! choose other alias.');
         }
     }
 
     const keys = Keys.getInstance().generateKeys();
-    const [, publicKey ] = keys;
+    const [, publicKey] = keys;
     wallets.push({
         alias,
         publicKey

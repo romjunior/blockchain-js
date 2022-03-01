@@ -9,7 +9,3 @@ export const mineBlockController: RequestHandler = async (req, res) => {
         message: 'block mined with success!'
     });
 }
-
-export const transferController: RequestHandler = async (req, res) => {
-    
-}
