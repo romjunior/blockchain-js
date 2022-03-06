@@ -28,7 +28,7 @@ export default class Blockchain {
         return new Block(new Date(), [], '0');
     }
 
-    getLatestBlock(): Block {
+    private getLatestBlock(): Block {
         return this.chain[this.chain.length - 1];
     }
 
@@ -96,7 +96,7 @@ export default class Blockchain {
         return balance;
     }
 
-    getAllTransactionsForWallet(address: string): Transaction[] {
+    async getAllTransactionsForWallet(address: string): Promise<Transaction[]> {
         const txs: Transaction[] = [];
 
         for(const block of this.chain) {
