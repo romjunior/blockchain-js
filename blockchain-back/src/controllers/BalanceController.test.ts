@@ -48,4 +48,19 @@ describe('BalanceController', () => {
               ]
         }, done);
     });
+
+    it('Testing 500 error for balance query', (done) => {
+        Blockchain.getIstance = jest.fn().mockImplementation(() => {
+            return {
+                getBalanceOfAddress: jest.fn().mockImplementation(() => {
+                    throw new Error('error');
+                })
+            }
+        });
+        
+        request.get('/balance?publicKey=bbb')
+        .expect(500, {
+            message: 'error'
+        }, done);
+    });
 });
