@@ -8,6 +8,7 @@ import Transaction from './model/Transaction';
 import errorHandler from './middleware/ExpressErrorHandler';
 import BalanceRouter from './routes/BalanceRouter';
 import BlockchainRouter from './routes/BlockchainRouter';
+import TransactionRouter from './routes/TransactionRouter';
 
 /* const algoritm: string = 'secp256k1';
 const hex = 'hex';
@@ -39,6 +40,7 @@ const app: Express = express();
 app.use(json());
 
 app.use('/wallet', WalletRouter);
+app.use('/transaction', TransactionRouter);
 app.use('/balance', BalanceRouter);
 app.use('/blockchain', BlockchainRouter);
 

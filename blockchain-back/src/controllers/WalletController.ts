@@ -5,8 +5,6 @@ import { NotFoundRequestError } from "../errors/HttpError";
 
 const log: Logger = new Logger();
 
-
-
 export const createWalletController: RequestHandler = async (req, res, next) => {
     log.info(`Init request`);
     const alias = req.query.alias as string;
