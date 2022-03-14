@@ -31,6 +31,7 @@ export const listAllTransactionsForWalletController: RequestHandler = async (req
             data: txs
         });
     } catch (e) {
+        log.error(`Error=${e}`);
         next(e);
     }
 
