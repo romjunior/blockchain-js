@@ -13,6 +13,11 @@ const mockCreateTransactionService = createTransactionService as jest.MockedFunc
 
 
 describe('TransactionController', () => {
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     it('create with success a transaction', (done) => {
         request.post('/transaction')
             .send({
@@ -60,7 +65,7 @@ describe('TransactionController', () => {
                         fromAddress: 'from',
                         toAddress: 'to',
                         amount: 10,
-                        timestamp: new Date().toDateString(),
+                        timestamp: 'Mon Mar 14 2022',
                         signature: 'aaa'
                     }
                 ])
