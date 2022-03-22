@@ -4,10 +4,10 @@ import Keys from "../core/Keys";
 export default class Transaction {
 
     private signature = '';
-    private timestamp: string;
+    private timestamp: Date;
 
     constructor(private fromAddress: string, private toAddress: string, private amount: number){
-        this.timestamp = new Date().toDateString();
+        this.timestamp = new Date();
     }
 
     get getFromAddress() {
