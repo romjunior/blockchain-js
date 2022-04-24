@@ -20,7 +20,7 @@ describe('Wallets', () => {
         underTestModule = require('./Wallets');
     });
 
-    it('deve criar uma chave com sucesso', async () => {
+    it('Should create a public key', async () => {
        const keys = await underTestModule.createWallet('test');
 
        const publicKey = await underTestModule.findPublicKeyByAlias('test');
@@ -29,14 +29,14 @@ describe('Wallets', () => {
        expect(publicKey).toBe('public');
     });
 
-    it('deve retornar um erro de chave para alias duplicado', async() => {
+    it('Should return a error when a alias is duplicated', async() => {
         await underTestModule.createWallet('test');
 
         await expect(underTestModule.createWallet('test')).rejects.toThrow(Error);
         await expect(underTestModule.createWallet('test')).rejects.toThrow('Wallet alias already exists! choose other alias.');
     });
 
-    it('deve retornar chave publica pelo alias pesquisado', async() => {
+    it('Should return a public key by de searched alias', async() => {
         await underTestModule.createWallet('test');
 
         const result = await underTestModule.findPublicKeyByAlias('test');
@@ -44,13 +44,13 @@ describe('Wallets', () => {
         expect(result).toBe('public');
     });
 
-    it('deve retornar undefined se não possuir chave publica pelo alias pesquisado', async() => {
+    it('Should return undefined when de searched alias not exists', async() => {
         const result = await underTestModule.findPublicKeyByAlias('test');
 
         expect(result).toBe(undefined);
     });
 
-    it('deve listar todas as carteiras cadastradas', async() => {
+    it('Should list all created wallets', async() => {
         await underTestModule.createWallet('test');
 
         const result = await underTestModule.listAllWallets();

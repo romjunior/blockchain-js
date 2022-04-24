@@ -11,7 +11,7 @@ describe('Block', () => {
         jest.resetAllMocks();
     });
 
-    it('deve criar um bloco com trasacoes validas', () => {
+    it('Should create a block with valid transactions', () => {
         mockSHA.mockReturnValue({
             words: [1, 2, 3],
             sigBytes: 1,
@@ -42,7 +42,7 @@ describe('Block', () => {
         });
     });
 
-    it('deve criar um bloco com trasacoes invalidas', () => {
+    it('Should create a block with invalid transactions', () => {
         mockSHA.mockReturnValue({
             words: [1, 2, 3],
             sigBytes: 1,
@@ -63,7 +63,7 @@ describe('Block', () => {
         expect(result.hasValidTransactions()).toBe(false);
     });
 
-    it('deve calcular o hash do bloco ate encontrar o valido', () => {
+    it('Should calculate de hashs Block until find a valid', () => {
         mockSHA.mockReturnValue({
             words: [1, 2, 3],
             sigBytes: 1,
