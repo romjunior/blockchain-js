@@ -1,4 +1,5 @@
 import { json } from 'body-parser';
+import cors from 'cors';
 import express, { Express, NextFunction, Request, Response } from 'express';
 
 import WalletRouter from './routes/WalletRouter';
@@ -37,6 +38,8 @@ console.log(`is Valid Blockchain: ${jrCoin.isChainValid()}`) */
 
 const app: Express = express();
 
+
+app.use(cors());
 app.use(json());
 
 app.use('/wallet', WalletRouter);

@@ -1,0 +1,14 @@
+.section {
+    width: 1300px;
+    margin: 15px auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.section h1 {
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom: 1px solid gray;
+}
