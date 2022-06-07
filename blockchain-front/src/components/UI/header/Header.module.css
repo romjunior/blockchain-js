@@ -1,7 +1,7 @@
 .header {
     margin: 0;
     padding: 10px 0px;
-    background-color: #DCDCDC;
+    background-color: #4682B4;
 }
 
 .header h1 {
@@ -11,5 +11,5 @@
     font-family: sans-serif;
     text-align: left;
     margin-left: 30px;
-    color: #4682B4;
+    color: #fff;
 }

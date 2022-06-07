@@ -8,7 +8,7 @@ import Wallet from './components/wallet/Wallet';
 function App() {
   return (
     <>
-    <Header title="jsCoin" />
+    <Header title="JsCoin" />
     <div className="App">
       <Section title="Carteiras">
         <Wallet />
