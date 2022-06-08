@@ -13,7 +13,7 @@ function App() {
       <Section title="Carteiras">
         <Wallet />
       </Section>
-      <Section title="edão bicha">
+      <Section title="Blocos">
         <p>content</p>
       </Section>
 
