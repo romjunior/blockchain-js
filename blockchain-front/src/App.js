@@ -1,27 +1,23 @@
-import './App.css';
-import Container from './components/UI/container/Container';
-import ContainerItem from './components/UI/container/ContainerItem';
-import Header from './components/UI/header/Header';
-import Section from './components/UI/section/Section';
-import Wallet from './components/wallet/Wallet';
+import "./App.css";
+import { Toolbar, AppBar, Typography, Container } from "@mui/material";
+import Wallet from "./components/wallet/Wallet";
 
 function App() {
+
   return (
     <>
-    <Header title="JsCoin" />
-    <div className="App">
-      <Section title="Carteiras">
-        <Wallet />
-      </Section>
-      <Section title="Blocos">
-        <p>content</p>
-      </Section>
-
-      <Container>
-        <ContainerItem />
-        <ContainerItem />
-      </Container>
-    </div>
+      <AppBar position="static">
+        <Toolbar variant="dense">
+          <Typography variant="h3" color="inherit" component="div">
+            JsCoin
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <div className="App">
+        <Container sx={{ "margin-top": "10px" }} maxWidth="xl">
+          <Wallet />
+        </Container>
+      </div>
     </>
   );
 }
