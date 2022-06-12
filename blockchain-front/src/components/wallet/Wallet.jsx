@@ -1,6 +1,7 @@
 import TabPaper from '../UI/TabPaper';
 import TabPanel from "../UI/TabPanel";
 import ListWallet from "./ListWallet";
+import CreateWallet from './CreateWallet';
 
 const labels = [
   {
@@ -16,10 +17,12 @@ const labels = [
 function Wallet() {
   return (
     <TabPaper labels={labels}>
-      <TabPanel index={labels[0].level}>
+      <TabPanel key="0" index={labels[0].level}>
         <ListWallet />
       </TabPanel>
-      <TabPanel index={labels[1].level}>Item Two</TabPanel>
+      <TabPanel key="1" index={labels[1].level}>
+        <CreateWallet />
+      </TabPanel>
     </TabPaper>
   );
 }

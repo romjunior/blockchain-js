@@ -24,7 +24,7 @@ function TabPaper(props) {
           aria-label="basic tabs example"
         >
           {props.labels.map((l) => (
-            <Tab label={l.name} {...a11yProps(l.level)} />
+            <Tab key={l.level} label={l.name} {...a11yProps(l.level)} />
           ))}
         </Tabs>
       </Box>

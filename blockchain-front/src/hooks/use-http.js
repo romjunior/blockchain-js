@@ -16,11 +16,12 @@ const useHttp = () => {
                 }
             );
 
+            const data = await response.json();
+
             if(!response.ok) {
-                throw new Error('Request Failed');
+                throw new Error(data ? data.message : 'Request has failed!');
             }
 
-            const data = await response.json();
             applyData(data);
         } catch(e) {
             setError(e.message || 'Something went wrong!');
