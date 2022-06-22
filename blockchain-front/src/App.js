@@ -1,6 +1,7 @@
 import "./App.css";
 import { Toolbar, AppBar, Typography, Container } from "@mui/material";
 import Wallet from "./components/wallet/Wallet";
+import Transaction from "./components/transaction/Transaction";
 
 function App() {
 
@@ -14,8 +15,11 @@ function App() {
         </Toolbar>
       </AppBar>
       <div className="App">
-        <Container sx={{ "margin-top": "10px" }} maxWidth="xl">
+        <Container sx={{ marginTop: "15px" }} maxWidth="xl">
           <Wallet />
+        </Container>
+        <Container sx={{ marginTop: "15px" }} maxWidth="xl">
+          <Transaction />
         </Container>
       </div>
     </>

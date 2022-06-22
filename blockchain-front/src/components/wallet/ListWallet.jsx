@@ -11,14 +11,17 @@ import {
   TableCell,
   TableRow,
   TableBody,
+  Snackbar,
 } from "@mui/material";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import useHttp from "../../hooks/use-http";
 
 function ListWallet() {
   const [wallet, setWallet] = useState();
+  const [open, setOpen] = useState(false);
 
-  const transformData = data => {
+  const transformData = (data) => {
     setWallet(data);
   };
 
@@ -27,6 +30,19 @@ function ListWallet() {
   const fetchWalletHandler = useCallback(() => {
     fetchWallets({ url: "http://localhost:3001/wallet/all" }, transformData);
   }, [fetchWallets]);
+
+  const handleClose = (event , reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const copyClipboard = (data) => {
+    console.log(data);
+    navigator.clipboard.writeText(data);
+    setOpen(true);
+  };
 
   useEffect(() => {
     fetchWalletHandler();
@@ -55,7 +71,14 @@ function ListWallet() {
                   <TableRow key={w.alias}>
                     <TableCell>{w.alias}</TableCell>
                     <TableCell>{w.publicKey}</TableCell>
-                    <TableCell>x</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        onClick={() => copyClipboard(w.publicKey)}
+                      >
+                        <ContentCopyIcon />
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -69,6 +92,12 @@ function ListWallet() {
         </Button>
         {!isLoading && wallet && <Button>Total {wallet.total}</Button>}
       </CardActions>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Copiado para área de transferência com sucesso!"
+      />
     </>
   );
 }
