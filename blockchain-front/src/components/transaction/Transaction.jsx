@@ -1,6 +1,7 @@
 import TabPaper from '../UI/TabPaper';
 import TabPanel from "../UI/TabPanel";
 import ListTransaction from './ListTransaction';
+import CreateTransaction from './CreateTransaction';
 
 const labels = [
     {
@@ -20,6 +21,7 @@ function Transaction() {
             <ListTransaction />
           </TabPanel>
           <TabPanel key="1" index={labels[1].level}>
+            <CreateTransaction />
           </TabPanel>
         </TabPaper>
       )

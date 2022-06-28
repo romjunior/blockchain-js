@@ -1,6 +1,8 @@
 import {
   Alert,
   Avatar,
+  Button,
+  CardActions,
   CardContent,
   CircularProgress,
   Divider,
@@ -21,28 +23,41 @@ import useHttp from "../../hooks/use-http";
 function ListTransaction() {
   const publicKeyRef = useRef();
   const [transactions, setTransactions] = useState();
+  const [balance, setBalance] = useState();
   const { isLoading, error, sendRequest: listTransactions } = useHttp();
-
-  const transformData = (data) => {
-    setTransactions(data);
-  };
+  const { isLoadingBalance, errorBalance, sendRequest: getBalance } = useHttp();
 
   const searchTransactionForPublicKey = () => {
+
+    const publicKey = publicKeyRef.current.value;
+
+    if(!publicKey) {
+      return;
+    }
+
     listTransactions(
       {
-        url: `http://localhost:3001/transaction?publicKey=${publicKeyRef.current.value}`,
+        url: `http://localhost:3001/transaction?publicKey=${publicKey}`
       },
-      transformData
+      (data) => setTransactions(data)
     );
+
+    getBalance({
+      url: `http://localhost:3001/balance?publicKey=${publicKey}`
+    },
+    (data) => setBalance(data.balance)
+    );
+
+
   };
 
   return (
     <>
       {isLoading && <CircularProgress />}
       {!isLoading && transactions && transactions.count === 0 && (
-        <p>Nenhuma Transação encontrada</p>
+        <span>Nenhuma Transação encontrada</span>
       )}
-      {!isLoading && error && <Alert severity="error">{error}</Alert>}
+      {!isLoading && (error || errorBalance) && <Alert severity="error">{error || errorBalance}</Alert>}
       <CardContent>
         <FormControl required={true} fullWidth={true} margin="normal">
           <InputLabel htmlFor="public-key-search">Chave Pública</InputLabel>
@@ -76,8 +91,9 @@ function ListTransaction() {
                         >
                           {"Data: " + transaction.timestamp}
                         </Typography>
+                        <br />
                         {
-                          " — Assinatura: " + transaction.signature
+                          "Assinatura: " + transaction.signature
                         }
                       </>
                     }
@@ -89,6 +105,9 @@ function ListTransaction() {
           </List>
         )}
       </CardContent>
+      <CardActions>
+        {!isLoadingBalance && balance && <Button>Saldo: {balance}</Button>}
+      </CardActions>
     </>
   );
 }

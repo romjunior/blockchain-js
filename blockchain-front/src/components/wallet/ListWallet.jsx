@@ -53,9 +53,9 @@ function ListWallet() {
       <CardContent>
         {isLoading && <CircularProgress />}
         {!isLoading && wallet && wallet.total === 0 && (
-          <p>Nenhuma chave encontrada</p>
+          <span>Nenhuma chave encontrada</span>
         )}
-        {!isLoading && error && <p>{error}</p>}
+        {!isLoading && error && <span>{error}</span>}
         {!isLoading && !error && wallet && wallet.total > 0 && (
           <TableContainer component={Paper}>
             <Table>
