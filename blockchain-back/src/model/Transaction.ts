@@ -22,6 +22,14 @@ export default class Transaction {
         return this.amount;
     }
 
+    get getTimestamp() {
+        return this.timestamp;
+    }
+
+    get getSignature() {
+        return this.signature;
+    }
+
     calculateHash(): string {
         return SHA256(this.fromAddress.concat(this.toAddress) + this.amount + this.timestamp).toString();
     }

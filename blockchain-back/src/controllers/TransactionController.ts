@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
 import { Logger } from "tslog";
-import Blockchain from "../core/Blockchain";
-import { createTransactionService } from "../services/TransactionService";
+import { createTransactionService, listAllTransactionForWalletService } from "../services/TransactionService";
 
 const log: Logger = new Logger();
 
@@ -24,12 +23,9 @@ export const listAllTransactionsForWalletController: RequestHandler = async (req
     log.info('Init')
     try {
         const publicKey = req.query.publicKey as string;
-        const txs = await Blockchain.getIstance().getAllTransactionsForWallet(publicKey);
+        const response = await listAllTransactionForWalletService(publicKey);
         log.info('listed all transactions with success');
-        res.status(200).json({
-            count: txs.length,
-            data: txs
-        });
+        res.status(200).json(response);
     } catch (e) {
         log.error(`Error=${e}`);
         next(e);

@@ -1,7 +1,6 @@
 import supertest from "supertest";
 import app from "../app";
-import Blockchain from "../core/Blockchain";
-import { createTransactionService } from "../services/TransactionService";
+import { createTransactionService, listAllTransactionForWalletService } from "../services/TransactionService";
 
 
 const request = supertest(app);
@@ -10,6 +9,7 @@ jest.mock('../services/TransactionService');
 jest.mock('../core/Blockchain');
 
 const mockCreateTransactionService = createTransactionService as jest.MockedFunction<typeof createTransactionService>
+const mockListAllTransactionsForWallet = listAllTransactionForWalletService as jest.MockedFunction<typeof listAllTransactionForWalletService>
 
 
 describe('TransactionController', () => {
@@ -58,18 +58,17 @@ describe('TransactionController', () => {
     });
 
     it('should list all transactions for given address', (done) => {
-        Blockchain.getIstance = jest.fn().mockImplementation(() => {
-            return {
-                getAllTransactionsForWallet: jest.fn().mockResolvedValue([
-                    {
-                        fromAddress: 'from',
-                        toAddress: 'to',
-                        amount: 10,
-                        timestamp: 'Mon Mar 14 2022',
-                        signature: 'aaa'
-                    }
-                ])
-            }
+
+        mockListAllTransactionsForWallet.mockResolvedValue({
+            count: 1,
+            data: [{
+                fromAddress: 'from',
+                toAddress: 'to',
+                amount: 10,
+                operation: 'positive',
+                timestamp: new Date('Mon Mar 14 2022'),
+                signature: 'aaa'
+            }]
         });
 
         request.get('/transaction?publicKey=from')
@@ -80,7 +79,8 @@ describe('TransactionController', () => {
                         fromAddress: 'from',
                         toAddress: 'to',
                         amount: 10,
-                        timestamp: 'Mon Mar 14 2022',
+                        operation: 'positive',
+                        timestamp: '2022-03-14T03:00:00.000Z',
                         signature: 'aaa'
                     }
                 ]
@@ -101,12 +101,8 @@ describe('TransactionController', () => {
     });
 
     it('500 error for list all transations for error', (done) => {
-        Blockchain.getIstance = jest.fn().mockImplementation(() => {
-            return {
-                getAllTransactionsForWallet: jest.fn().mockImplementation(() => {
-                    throw new Error('error');
-                })
-            }
+        mockListAllTransactionsForWallet.mockImplementation(() => {
+            throw new Error('error');
         });
 
         request.get('/transaction?publicKey=aaa')

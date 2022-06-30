@@ -107,6 +107,12 @@ export default class Blockchain {
             }
         }
 
+        for(const tx of this.pendingTransactions) {
+            if(tx.getFromAddress === address || tx.getToAddress === address) {
+                txs.push(tx);
+            }
+        }
+
         return txs;
     }
 
