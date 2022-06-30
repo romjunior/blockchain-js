@@ -5,19 +5,21 @@ import Transaction from "../model/Transaction";
 
 const log: Logger = new Logger();
 
-export interface TransactionListDTO {
+interface TransactionListDTO {
     count: number,
     data: TransactionDTO[]
 }
 
-export interface TransactionDTO {
+interface TransactionDTO {
     fromAddress: string,
     toAddress: string,
     amount: number,
-    operation: string,
+    operation: Operation,
     timestamp: Date,
     signature: string
 }
+
+type Operation = 'positive' | 'negative'
 
 export const createTransactionService = async (fromAddress: string, toAddress: string, amount: number): Promise<void> => {
     const fromPublicAddress = Keys.getInstance().getPublic(fromAddress);
