@@ -43,7 +43,7 @@ export default class Transaction {
     }
 
     isValid(): boolean {
-        if(this.fromAddress === '') return true;
+        if(this.fromAddress === '[Blockchain Reward]') return true;
 
         if(!this.signature || this.signature.length === 0) {
             throw Error('No Signature for this transaction');
