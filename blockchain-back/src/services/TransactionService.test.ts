@@ -1,6 +1,6 @@
 import Blockchain from "../core/Blockchain";
 import Keys from "../core/Keys";
-import Transaction from "../model/Transaction";
+import Transaction from "../core/Transaction";
 import { createTransactionService, listAllTransactionForWalletService } from "./TransactionService";
 
 jest.mock('../core/Keys');

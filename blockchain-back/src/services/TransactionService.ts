@@ -1,7 +1,7 @@
 import { Logger } from "tslog";
 import Blockchain from "../core/Blockchain";
 import Keys from "../core/Keys";
-import Transaction from "../model/Transaction";
+import Transaction from "../core/Transaction";
 
 const log: Logger = new Logger();
 

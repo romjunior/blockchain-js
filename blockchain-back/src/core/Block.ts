@@ -22,7 +22,7 @@ export default class Block {
     }
 
     calculateHash(): string {
-        return SHA256(this.timestamp.toDateString() + JSON.stringify(this.data) + this.previousHash + this.nonce).toString();
+        return SHA256(JSON.stringify(this.data) + this.previousHash + this.nonce).toString();
     }
 
     mineBlock(difficulty: number) {

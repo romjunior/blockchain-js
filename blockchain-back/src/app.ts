@@ -5,7 +5,7 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import WalletRouter from './routes/WalletRouter';
 import { ec as EC } from "elliptic";
 import Blockchain from './core/Blockchain';
-import Transaction from './model/Transaction';
+import Transaction from './core/Transaction';
 import errorHandler from './middleware/ExpressErrorHandler';
 import BalanceRouter from './routes/BalanceRouter';
 import BlockchainRouter from './routes/BlockchainRouter';

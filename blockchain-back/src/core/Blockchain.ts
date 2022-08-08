@@ -1,5 +1,5 @@
-import Block from "../model/Block";
-import Transaction from "../model/Transaction";
+import Block from "./Block";
+import Transaction from "./Transaction";
 
 export default class Blockchain {
     private static instance: Blockchain;
@@ -33,7 +33,7 @@ export default class Blockchain {
     }
 
     async minePendingTransactions(miningRewardAddress: string): Promise<void> {
-        const rewardTransaction = new Transaction('', miningRewardAddress, this.miningReward);
+        const rewardTransaction = new Transaction('[Blockchain Reward]', miningRewardAddress, this.miningReward);
         this.pendingTransactions.push(rewardTransaction);
 
         const block = new Block(new Date(), this.pendingTransactions, this.getLatestBlock().getHash);
@@ -93,6 +93,16 @@ export default class Blockchain {
             }
         }
 
+        for(const tx of this.pendingTransactions) {
+            if(tx.getFromAddress === address) {
+                balance -= tx.getAmount;
+            }
+
+            if(tx.getToAddress == address) {
+                balance += tx.getAmount;
+            }
+        }
+
         return balance;
     }
 
@@ -116,11 +126,16 @@ export default class Blockchain {
         return txs;
     }
 
+    getChain(): Block[] {
+        return this.chain;
+    }
+
     isChainValid(): boolean {
 
-        const realGenesis = JSON.stringify(this.createGenesysBlock());
+        const realGenesis = this.createGenesysBlock();
 
-        if(realGenesis !== JSON.stringify(this.chain[0])) return false;
+        if(realGenesis.getHash !== this.chain[0].getHash ||
+        realGenesis.getPreviousHash !== this.chain[0].getPreviousHash) return false;
 
         for(let i = 1; i < this.chain.length; i++) {
             const currentBlock = this.chain[i];

@@ -1,6 +1,6 @@
 import { SHA256 } from "crypto-js";
 import Transaction from './Transaction';
-import Keys from '../core/Keys';
+import Keys from './Keys';
 
 jest.mock('crypto-js');
 jest.mock('../core/Keys');
