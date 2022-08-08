@@ -19,6 +19,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import { useRef, useState } from "react";
 import useHttp from "../../hooks/use-http";
+import { blue, red } from "@mui/material/colors";
 
 function ListTransaction() {
   const publicKeyRef = useRef();
@@ -51,6 +52,8 @@ function ListTransaction() {
 
   };
 
+  const isPositive = (tx) => tx.operation === 'positive';
+
   return (
     <>
       {isLoading && <CircularProgress />}
@@ -77,10 +80,10 @@ function ListTransaction() {
               <>
                 <ListItem key={transaction.timestamp} alignItems="flex-start">
                   <ListItemAvatar>
-                    <Avatar variant="rounded">{transaction.amount}</Avatar>
+                    <Avatar variant="rounded" sx={isPositive(transaction) ? { bgcolor: blue[500] } : { bgcolor: red[500] }} >{transaction.amount}</Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={"Para: " + transaction.fromAddress}
+                    primary={isPositive(transaction) ? "De: " + transaction.fromAddress : "Para: " + transaction.toAddress }
                     secondary={
                       <>
                         <Typography
